@@ -38,6 +38,9 @@ inputs:
   token:
     description: "The GitHub Token to use."
     required: true
+  types:
+    description: "Limit generate log only include types."
+    required: false
 outputs:
   summary:
     description: "The generated changelog for the new version"

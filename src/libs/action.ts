@@ -1,4 +1,4 @@
-import { getInput, type InputOptions, setOutput } from '@actions/core'
+import { getInput, getMultilineInput, type InputOptions, setOutput } from '@actions/core'
 import { type ChangelogOptions } from 'changelogithub'
 
 export function getInputOptions(): ChangelogOptions {
@@ -15,7 +15,7 @@ export function getInputOptions(): ChangelogOptions {
     name: getStringInput('name'),
     prerelease: getBooleanInput('prerelease'),
     to: getStringInput('to'),
-    token: getStringInput('token', { required: true }),
+    token: getStringInput('token'),
     types: {
       feat: { title: '🚀 Features' },
       fix: { title: '🐞 Bug Fixes' },
@@ -37,7 +37,17 @@ export function getInputOptions(): ChangelogOptions {
   // https://github.com/actions/toolkit/issues/272
   for (const [key, value] of Object.entries(inputs)) {
     if (value !== undefined) {
-      Object.assign(options, { [key]: value })
+      if (key == "types") {
+        let types = getMultilineInput('types')
+        if (types.length > 0) {
+          Object.assign(options, { [key]: Object.fromEntries(Object.entries(value).filter(([key]) => types.includes(key))) })
+        } else {
+          Object.assign(options, { [key]: value })
+        }
+        
+      } else {
+        Object.assign(options, { [key]: value })
+      }
     }
   }
 

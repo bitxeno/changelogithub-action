@@ -24,7 +24,7 @@ function getInputOptions() {
         name: getStringInput('name'),
         prerelease: getBooleanInput('prerelease'),
         to: getStringInput('to'),
-        token: getStringInput('token', { required: true }),
+        token: getStringInput('token'),
         types: {
             feat: { title: '🚀 Features' },
             fix: { title: '🐞 Bug Fixes' },
@@ -44,7 +44,18 @@ function getInputOptions() {
     // https://github.com/actions/toolkit/issues/272
     for (const [key, value] of Object.entries(inputs)) {
         if (value !== undefined) {
-            Object.assign(options, { [key]: value });
+            if (key == "types") {
+                let types = (0, core_1.getMultilineInput)('types');
+                if (types.length > 0) {
+                    Object.assign(options, { [key]: Object.fromEntries(Object.entries(value).filter(([key]) => types.includes(key))) });
+                }
+                else {
+                    Object.assign(options, { [key]: value });
+                }
+            }
+            else {
+                Object.assign(options, { [key]: value });
+            }
         }
     }
     return options;
