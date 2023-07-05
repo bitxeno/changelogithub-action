@@ -4,11 +4,7 @@
 
 # Create a JavaScript Action using TypeScript
 
-Use this template to bootstrap the creation of a TypeScript action.:rocket:
-
-This template includes compilation support, tests, a validation workflow, publishing, and versioning guidance.  
-
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
+[`changelogithub`](https://github.com/antfu/changelogithub) github action wapper to generate Changelog
 
 ## Create an action from this template
 

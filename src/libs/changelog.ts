@@ -22,7 +22,9 @@ export async function generateChangelog() {
       throw new Error(`Current ref "${config.to}" is not available as tags on GitHub. Release skipped.`)
     }
 
-    setChangelogOutput(md)
+    let changelog = md.replace('##### &nbsp;&nbsp;&nbsp;&nbsp;', 'Full Changelog: ')
+                      .replace('View changes on GitHub', `${config.from}...${config.to}`)
+    setChangelogOutput(changelog)
 
     if (commits.length === 0 && (await isRepoShallow())) {
       throw new Error(
