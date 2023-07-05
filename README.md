@@ -24,17 +24,6 @@ Build the typescript and package it for distribution
 $ npm run build && npm run package
 ```
 
-Run the tests :heavy_check_mark:  
-```bash
-$ npm test
-
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-
-...
-```
 
 ## Change action.yml
 
