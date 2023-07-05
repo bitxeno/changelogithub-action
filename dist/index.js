@@ -92,7 +92,9 @@ function generateChangelog() {
             if (!(yield (0, changelogithub_1.hasTagOnGitHub)(config.to, config))) {
                 throw new Error(`Current ref "${config.to}" is not available as tags on GitHub. Release skipped.`);
             }
-            (0, action_1.setChangelogOutput)(md);
+            let changelog = md.replace('##### &nbsp;&nbsp;&nbsp;&nbsp;', 'Full Changelog: ')
+                .replace('View changes on GitHub', `${config.from}...${config.to}`);
+            (0, action_1.setChangelogOutput)(changelog);
             if (commits.length === 0 && (yield (0, changelogithub_1.isRepoShallow)())) {
                 throw new Error('The repo seems to be cloned shallowly, which make changelog failed to generate. You might want to specify `fetch-depth: 0` in your CI config.');
             }
