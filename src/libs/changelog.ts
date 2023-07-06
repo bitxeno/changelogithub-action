@@ -32,13 +32,15 @@ export async function generateChangelog(inputOptions: ChangelogOptions) {
     throw new Error(`Current ref "${config.to}" is not available as tags on GitHub. Release skipped.`)
   }
 
-  let changelog = md
-    .replace('##### &nbsp;&nbsp;&nbsp;&nbsp;', '**Full Changelog**: ')
-    .replace('View changes on GitHub', `${config.from}...${config.to}`)
-    .replace(/### &nbsp;&nbsp;&nbsp;/g, '## ')
+  // remove footer diff link
+  let content = md.replace(/##### &nbsp;&nbsp;&nbsp;&nbsp;.+/i, '')
+
+  const diff = `https://github.com/${config.github}/compare/${config.from}...${config.to}`
+  const footer = `**Full Changelog**:  ${diff}\n`
+  const changelog = content.replace(/### &nbsp;&nbsp;&nbsp;/g, '## ') + footer
   setOutput('changelog', changelog)
 
-  await setFileChangelogOutput(config, md)
+  await setFileChangelogOutput(config, content)
 
   if (commits.length === 0 && (await isRepoShallow())) {
     throw new Error(
@@ -48,13 +50,12 @@ export async function generateChangelog(inputOptions: ChangelogOptions) {
 }
 
 
-async function setFileChangelogOutput(config: ChangelogOptions, md: string) {
+async function setFileChangelogOutput(config: ChangelogOptions, changelog: string) {
   let d = new Date()
   let year = d.getFullYear()
   let month = (d.getMonth() + 1).toString().padStart(2, '0')
   let day = d.getDate().toString().padStart(2, '0')
   let header = `## ${config.to} (${year}-${month}-${day})\n`
-  let changelog = md.replace(/##### &nbsp;&nbsp;&nbsp;&nbsp;.+/i, '')
 
   setOutput('changelog_with_version', header + changelog)
 
