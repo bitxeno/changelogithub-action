@@ -1,7 +1,8 @@
 import { info, setFailed, setOutput } from '@actions/core'
 import * as fs from 'fs/promises';
 import * as path from 'path'
-import { generate, hasTagOnGitHub, isRepoShallow, ChangelogOptions, sendRelease } from 'changelogithub'
+import { generate, hasTagOnGitHub, isRepoShallow, ChangelogOptions } from 'changelogithub'
+import prependFile from 'prepend-file';
 
 import { getInputOptions, getStringInput } from './action'
 
@@ -63,6 +64,6 @@ async function setFileChangelogOutput(config: ChangelogOptions, md: string) {
     if (dir != '' && dir != '.' && dir != '/') {
       await fs.mkdir(dir, { recursive: true })
     }
-    await fs.appendFile(outputFile, header + changelog)
+    await prependFile(outputFile, header + changelog)
   }
 }
