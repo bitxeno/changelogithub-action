@@ -1,3 +1,12 @@
+## v1.0.6 (2023-07-06)
+### &nbsp;&nbsp;&nbsp;🔧 Tweaks
+
+- Prepend changelog to CHANGELOG.md &nbsp;-&nbsp; by @bitxeno [<samp>(c99a0)</samp>](https://github.com/bitxeno/changelogithub-action/commit/c99a058)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **release**: Release v1.0.5 &nbsp;-&nbsp; by @github-actions[bot] [<samp>(e2c3e)</samp>](https://github.com/bitxeno/changelogithub-action/commit/e2c3ee9)
+
 ## v1.0.4 (2023-07-06)
 ### &nbsp;&nbsp;&nbsp;🚀 Features
 
