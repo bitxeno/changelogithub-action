@@ -36,6 +36,7 @@ jobs:
           default_author: github_actions
           add: "lib/ dist/ docs/"
           message: "chore(release): Release ${{steps.vars.outputs.VERSION}}"
+          push: origin HEAD:master
 
       - name: Upload binary to GitHub Release
         uses: softprops/action-gh-release@v1
