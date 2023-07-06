@@ -88,6 +88,29 @@ exports.getBooleanInput = getBooleanInput;
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -100,6 +123,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.generateChangelog = exports.run = void 0;
 const core_1 = __nccwpck_require__(2186);
+const fs = __importStar(__nccwpck_require__(3292));
+const path = __importStar(__nccwpck_require__(1017));
 const changelogithub_1 = __nccwpck_require__(8750);
 const action_1 = __nccwpck_require__(1864);
 function run() {
@@ -131,7 +156,7 @@ function generateChangelog(inputOptions) {
             .replace('##### &nbsp;&nbsp;&nbsp;&nbsp;', '**Full Changelog**: ')
             .replace('View changes on GitHub', `${config.from}...${config.to}`);
         (0, core_1.setOutput)('changelog', changelog);
-        setFileChangelogOutput(config, md);
+        yield setFileChangelogOutput(config, md);
         if (commits.length === 0 && (yield (0, changelogithub_1.isRepoShallow)())) {
             throw new Error('The repo seems to be cloned shallowly, which make changelog failed to generate. You might want to specify `fetch-depth: 0` in your CI config.');
         }
@@ -139,13 +164,23 @@ function generateChangelog(inputOptions) {
 }
 exports.generateChangelog = generateChangelog;
 function setFileChangelogOutput(config, md) {
-    let d = new Date();
-    let year = d.getFullYear();
-    let month = (d.getMonth() + 1).toString().padStart(2, '0');
-    let day = d.getDate().toString().padStart(2, '0');
-    let header = `## ${config.to} (${year}-${month}-${day})\n`;
-    let changelog = md.replace(/##### &nbsp;&nbsp;&nbsp;&nbsp;.+/i, '');
-    (0, core_1.setOutput)('changelog_with_version', header + changelog);
+    return __awaiter(this, void 0, void 0, function* () {
+        let d = new Date();
+        let year = d.getFullYear();
+        let month = (d.getMonth() + 1).toString().padStart(2, '0');
+        let day = d.getDate().toString().padStart(2, '0');
+        let header = `## ${config.to} (${year}-${month}-${day})\n`;
+        let changelog = md.replace(/##### &nbsp;&nbsp;&nbsp;&nbsp;.+/i, '');
+        (0, core_1.setOutput)('changelog_with_version', header + changelog);
+        let outputFile = (0, action_1.getStringInput)('output-file');
+        if (outputFile && outputFile != '') {
+            let dir = path.dirname(outputFile);
+            if (dir != '' && dir != '.' && dir != '/') {
+                yield fs.mkdir(dir, { recursive: true });
+            }
+            yield fs.appendFile(outputFile, header + changelog);
+        }
+    });
 }
 
 
@@ -14787,6 +14822,14 @@ module.exports = require("events");
 
 "use strict";
 module.exports = require("fs");
+
+/***/ }),
+
+/***/ 3292:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("fs/promises");
 
 /***/ }),
 
