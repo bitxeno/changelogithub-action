@@ -39,10 +39,10 @@ inputs:
     description: "The GitHub Token to use."
     required: true
   types:
-    description: "Limit generate log only include types."
+    description: "Generate log types filter."
     required: false
   output-file:
-    description: "File to output the changelog to"
+    description: "File to output the changelog to."
     required: false
 outputs:
   changelog:
