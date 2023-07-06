@@ -35,7 +35,7 @@ jobs:
         with:
           default_author: github_actions
           add: "lib/ dist/ docs/"
-          message: "chore(release): Release ${{steps.vars.outputs.VERSION}}"
+          message: "chore(release): Release ${{ github.ref_name }}"
           push: origin HEAD:main
 
       - name: Upload binary to GitHub Release
