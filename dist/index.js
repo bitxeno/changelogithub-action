@@ -152,9 +152,10 @@ function generateChangelog(inputOptions) {
         if (!(yield (0, changelogithub_1.hasTagOnGitHub)(config.to, config))) {
             throw new Error(`Current ref "${config.to}" is not available as tags on GitHub. Release skipped.`);
         }
-        let changelog = md.replace('### &nbsp;&nbsp;&nbsp;', '## ')
+        let changelog = md
             .replace('##### &nbsp;&nbsp;&nbsp;&nbsp;', '**Full Changelog**: ')
-            .replace('View changes on GitHub', `${config.from}...${config.to}`);
+            .replace('View changes on GitHub', `${config.from}...${config.to}`)
+            .replace(/### &nbsp;&nbsp;&nbsp;/g, '## ');
         (0, core_1.setOutput)('changelog', changelog);
         yield setFileChangelogOutput(config, md);
         if (commits.length === 0 && (yield (0, changelogithub_1.isRepoShallow)())) {
