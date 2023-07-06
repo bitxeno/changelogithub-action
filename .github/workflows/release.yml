@@ -21,13 +21,21 @@ jobs:
         run: npm install
 
       - name: Build
-        run: npm run build
+        run: npm run build && npm run package
 
       - name: Generate changelog
         uses: ./
         id: changelog
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          output-file: ./docs/CHANGELOG.md
+
+      - name: Git commit changelog
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          add: "lib/ dist/ docs/"
+          message: "chore(release): Release ${{steps.vars.outputs.VERSION}}"
 
       - name: Upload binary to GitHub Release
         uses: softprops/action-gh-release@v1

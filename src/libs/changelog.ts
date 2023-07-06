@@ -1,5 +1,6 @@
 import { info, setFailed, setOutput } from '@actions/core'
 import * as fs from 'fs/promises';
+import * as path from 'path'
 import { generate, hasTagOnGitHub, isRepoShallow, ChangelogOptions, sendRelease } from 'changelogithub'
 
 import { getInputOptions, getStringInput } from './action'
@@ -35,7 +36,7 @@ export async function generateChangelog(inputOptions: ChangelogOptions) {
     .replace('View changes on GitHub', `${config.from}...${config.to}`)
   setOutput('changelog', changelog)
 
-  setFileChangelogOutput(config, md)
+  await setFileChangelogOutput(config, md)
 
   if (commits.length === 0 && (await isRepoShallow())) {
     throw new Error(
@@ -45,7 +46,7 @@ export async function generateChangelog(inputOptions: ChangelogOptions) {
 }
 
 
-function setFileChangelogOutput(config: ChangelogOptions, md: string) {
+async function setFileChangelogOutput(config: ChangelogOptions, md: string) {
   let d = new Date()
   let year = d.getFullYear()
   let month = (d.getMonth() + 1).toString().padStart(2, '0')
@@ -54,4 +55,13 @@ function setFileChangelogOutput(config: ChangelogOptions, md: string) {
   let changelog = md.replace(/##### &nbsp;&nbsp;&nbsp;&nbsp;.+/i, '')
 
   setOutput('changelog_with_version', header + changelog)
+
+  let outputFile = getStringInput('output-file')
+  if (outputFile && outputFile != '') {
+    let dir = path.dirname(outputFile)
+    if (dir != '' && dir != '.' && dir != '/') {
+      await fs.mkdir(dir, { recursive: true })
+    }
+    await fs.appendFile(outputFile, header + changelog)
+  }
 }
