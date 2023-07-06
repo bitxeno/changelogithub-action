@@ -1,15 +1,71 @@
-import * as process from 'process'
-import * as cp from 'child_process'
-import * as path from 'path'
-import {test} from '@jest/globals'
+import * as process from "process";
+import { beforeEach, afterEach, assert, expect, test, vi } from 'vitest'
+import { ChangelogOptions } from 'changelogithub'
 
+import { getInputOptions } from "../src/libs/action";
+import { generateChangelog } from '../src/libs/changelog'
 
-// shows how the runner will run a javascript action with env / stdout protocol
-test('test runs', () => {
-  const np = process.execPath
-  const ip = path.join(__dirname, '..', 'lib', 'main.js')
-  const options: cp.ExecFileSyncOptions = {
-    env: process.env,
-  }
-  console.log(cp.execFileSync(np, [ip], options).toString())
+vi.mock("changelogithub", async () => {
+  const actual = await vi.importActual<typeof import("changelogithub")>("changelogithub");
+  return {
+    ...actual,
+    hasTagOnGitHub: vi.fn().mockResolvedValue(true),
+  };
 })
+
+vi.mock('@actions/core', async () => {
+  const actual = await vi.importActual<typeof import('@actions/core')>('@actions/core');
+  return {
+    ...actual,
+    setOutput: vi.fn().mockImplementation(function (name: string, value: any) {
+      console.log(`OUTPUT[${name}]:`)
+      console.log(value)
+    }),
+    setFailed: vi.fn().mockImplementation(function (message: string | Error) {
+      if (message instanceof Error) {
+        throw message
+      } else {
+        throw new Error(message)
+      }
+    })
+  };
+})
+
+beforeEach(() => {
+});
+
+afterEach(() => {
+  // clean all env
+  Object.entries(process.env).forEach(([key, value]) => {
+    delete process.env[key]
+  })
+});
+
+test("test input default", async () => {
+  const inputOptions = getInputOptions()
+
+  console.log(inputOptions)
+});
+
+test("test input", async () => {
+  process.env["INPUT_TOKEN"] = "xxx";
+  process.env["INPUT_TYPES"] = 'ci\nfix';
+
+
+  const inputOptions = getInputOptions()
+  console.log(inputOptions)
+});
+
+test("test generate log", async () => {
+  // const mock = await vi.importMock<typeof import('../src/libs/changelog')>('../src/libs/changelog')
+  // mock.hasTag = vi.fn().mockResolvedValue(true)
+  process.env["INPUT_OUTPUT"] = 'CHANGELOG.md';
+
+  const options: ChangelogOptions = {
+    token: 'xxx',
+    github: "bitxeno/changelogithub-action",
+    from: 'v0.0.4',
+    to: 'v0.0.9',
+  }
+  await generateChangelog(options)
+});

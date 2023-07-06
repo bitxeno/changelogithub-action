@@ -42,8 +42,10 @@ inputs:
     description: "Limit generate log only include types."
     required: false
 outputs:
-  summary:
+  changelog:
     description: "The generated changelog for the new version"
+  changelog_with_version:
+    description: "The generated changelog for the new version with version header. (Better for CHANGELOG.md file)"
 runs:
   using: "node16"
   main: "dist/index.js"

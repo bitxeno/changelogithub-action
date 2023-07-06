@@ -21,6 +21,8 @@ export function getInputOptions(): ChangelogOptions {
       fix: { title: '🐞 Bug Fixes' },
       perf: { title: '🏎 Performance' },
       refactor: { title: "💅 Refactors" },
+      improve: { title: "💅 Improvements" },
+      tweak: { title: "💅 Tweaks" },
       docs: { title: "📖 Documentation" },
       build: { title: "📦 Build" },
       types: { title: "🌊 Types" },
@@ -44,7 +46,7 @@ export function getInputOptions(): ChangelogOptions {
         } else {
           Object.assign(options, { [key]: value })
         }
-        
+
       } else {
         Object.assign(options, { [key]: value })
       }
@@ -54,11 +56,9 @@ export function getInputOptions(): ChangelogOptions {
   return options
 }
 
-export function setChangelogOutput(md: string) {
-  setOutput('summary', md)
-}
 
-function getStringInput(name: string, options?: InputOptions) {
+
+export function getStringInput(name: string, options?: InputOptions) {
   const input = getInput(name, options)
 
   if (input === '') {
@@ -68,7 +68,7 @@ function getStringInput(name: string, options?: InputOptions) {
   return input
 }
 
-function getBooleanInput(name: string, options?: InputOptions) {
+export function getBooleanInput(name: string, options?: InputOptions) {
   const input = getInput(name, options)
 
   if (input === '') {

@@ -1,3 +1,3 @@
-import { generateChangelog } from './libs/changelog'
+import { run } from './libs/changelog'
 
-generateChangelog()
+run()

@@ -7,7 +7,7 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.setChangelogOutput = exports.getInputOptions = void 0;
+exports.getBooleanInput = exports.getStringInput = exports.getInputOptions = void 0;
 const core_1 = __nccwpck_require__(2186);
 function getInputOptions() {
     var _a;
@@ -30,6 +30,8 @@ function getInputOptions() {
             fix: { title: '🐞 Bug Fixes' },
             perf: { title: '🏎 Performance' },
             refactor: { title: "💅 Refactors" },
+            improve: { title: "💅 Improvements" },
+            tweak: { title: "💅 Tweaks" },
             docs: { title: "📖 Documentation" },
             build: { title: "📦 Build" },
             types: { title: "🌊 Types" },
@@ -61,10 +63,6 @@ function getInputOptions() {
     return options;
 }
 exports.getInputOptions = getInputOptions;
-function setChangelogOutput(md) {
-    (0, core_1.setOutput)('summary', md);
-}
-exports.setChangelogOutput = setChangelogOutput;
 function getStringInput(name, options) {
     const input = (0, core_1.getInput)(name, options);
     if (input === '') {
@@ -72,6 +70,7 @@ function getStringInput(name, options) {
     }
     return input;
 }
+exports.getStringInput = getStringInput;
 function getBooleanInput(name, options) {
     const input = (0, core_1.getInput)(name, options);
     if (input === '') {
@@ -79,6 +78,7 @@ function getBooleanInput(name, options) {
     }
     return input === 'true';
 }
+exports.getBooleanInput = getBooleanInput;
 
 
 /***/ }),
@@ -98,39 +98,55 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.generateChangelog = void 0;
+exports.generateChangelog = exports.run = void 0;
 const core_1 = __nccwpck_require__(2186);
 const changelogithub_1 = __nccwpck_require__(8750);
 const action_1 = __nccwpck_require__(1864);
-function generateChangelog() {
+function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const inputOptions = (0, action_1.getInputOptions)();
-            const { commits, config, md } = yield (0, changelogithub_1.generate)(inputOptions);
-            if (config.dry) {
-                (0, core_1.info)('Dry run. Release skipped.');
-                return;
-            }
-            if (!config.token) {
-                throw new Error('No GitHub token found, specify it via the `token` action input. Release skipped.');
-            }
-            if (!(yield (0, changelogithub_1.hasTagOnGitHub)(config.to, config))) {
-                throw new Error(`Current ref "${config.to}" is not available as tags on GitHub. Release skipped.`);
-            }
-            let changelog = md.replace('### &nbsp;&nbsp;&nbsp;', '## ')
-                .replace('##### &nbsp;&nbsp;&nbsp;&nbsp;', '**Full Changelog**: ')
-                .replace('View changes on GitHub', `${config.from}...${config.to}`);
-            (0, action_1.setChangelogOutput)(changelog);
-            if (commits.length === 0 && (yield (0, changelogithub_1.isRepoShallow)())) {
-                throw new Error('The repo seems to be cloned shallowly, which make changelog failed to generate. You might want to specify `fetch-depth: 0` in your CI config.');
-            }
+            yield generateChangelog(inputOptions);
         }
         catch (error) {
             (0, core_1.setFailed)(`Action changelogithub failed with error: ${error instanceof Error ? error.message : String(error)}`);
         }
     });
 }
+exports.run = run;
+function generateChangelog(inputOptions) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { commits, config, md } = yield (0, changelogithub_1.generate)(inputOptions);
+        if (config.dry) {
+            (0, core_1.info)('Dry run. Release skipped.');
+            return;
+        }
+        if (!config.token) {
+            throw new Error('No GitHub token found, specify it via the `token` action input. Release skipped.');
+        }
+        if (!(yield (0, changelogithub_1.hasTagOnGitHub)(config.to, config))) {
+            throw new Error(`Current ref "${config.to}" is not available as tags on GitHub. Release skipped.`);
+        }
+        let changelog = md.replace('### &nbsp;&nbsp;&nbsp;', '## ')
+            .replace('##### &nbsp;&nbsp;&nbsp;&nbsp;', '**Full Changelog**: ')
+            .replace('View changes on GitHub', `${config.from}...${config.to}`);
+        (0, core_1.setOutput)('changelog', changelog);
+        setFileChangelogOutput(config, md);
+        if (commits.length === 0 && (yield (0, changelogithub_1.isRepoShallow)())) {
+            throw new Error('The repo seems to be cloned shallowly, which make changelog failed to generate. You might want to specify `fetch-depth: 0` in your CI config.');
+        }
+    });
+}
 exports.generateChangelog = generateChangelog;
+function setFileChangelogOutput(config, md) {
+    let d = new Date();
+    let year = d.getFullYear();
+    let month = (d.getMonth() + 1).toString().padStart(2, '0');
+    let day = d.getDate().toString().padStart(2, '0');
+    let header = `## ${config.to} (${year}-${month}-${day})\n`;
+    let changelog = md.replace(/##### &nbsp;&nbsp;&nbsp;&nbsp;.+/i, '');
+    (0, core_1.setOutput)('changelog_with_version', header + changelog);
+}
 
 
 /***/ }),
@@ -30857,7 +30873,7 @@ var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const changelog_1 = __nccwpck_require__(5930);
-(0, changelog_1.generateChangelog)();
+(0, changelog_1.run)();
 
 })();
 
