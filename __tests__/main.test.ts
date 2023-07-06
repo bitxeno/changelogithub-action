@@ -59,13 +59,13 @@ test("test input", async () => {
 test("test generate log", async () => {
   // const mock = await vi.importMock<typeof import('../src/libs/changelog')>('../src/libs/changelog')
   // mock.hasTag = vi.fn().mockResolvedValue(true)
-  process.env["INPUT_OUTPUT-FILE"] = 'CHANGELOG.md';
+  // process.env["INPUT_OUTPUT-FILE"] = 'CHANGELOG.md';
 
   const options: ChangelogOptions = {
     token: 'xxx',
     github: "bitxeno/changelogithub-action",
-    from: 'v0.0.4',
-    to: 'v0.0.9',
+    from: 'v1.0.3',
+    to: 'v1.0.4',
   }
   await generateChangelog(options)
 });

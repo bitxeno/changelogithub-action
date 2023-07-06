@@ -31,9 +31,10 @@ export async function generateChangelog(inputOptions: ChangelogOptions) {
     throw new Error(`Current ref "${config.to}" is not available as tags on GitHub. Release skipped.`)
   }
 
-  let changelog = md.replace('### &nbsp;&nbsp;&nbsp;', '## ')
+  let changelog = md
     .replace('##### &nbsp;&nbsp;&nbsp;&nbsp;', '**Full Changelog**: ')
     .replace('View changes on GitHub', `${config.from}...${config.to}`)
+    .replace(/### &nbsp;&nbsp;&nbsp;/g, '## ')
   setOutput('changelog', changelog)
 
   await setFileChangelogOutput(config, md)
