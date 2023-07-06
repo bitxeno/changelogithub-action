@@ -1,7 +1,7 @@
 
 # changelogithub-action
 
-<a href="https://github.com/actions/typescript-action/actions"><img alt="build status" src="https://github.com/bitxeno/changelogithub-action/workflows/build/badge.svg"></a>
+<a href="https://github.com/bitxeno/changelogithub-action/actions"><img alt="build status" src="https://github.com/bitxeno/changelogithub-action/workflows/build/badge.svg"></a>
 
 
 A GitHub action to generate changelog with [Conventional Commits](https://www.conventionalcommits.org/). Powered by [`changelogithub`](https://github.com/antfu/changelogithub)
