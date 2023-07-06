@@ -2,9 +2,9 @@
   <a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
 </p>
 
-# Create a JavaScript Action using TypeScript
+# changelogithub-action
 
-[`changelogithub`](https://github.com/antfu/changelogithub) github action wapper to generate Changelog
+A GitHub action to generate changelog with [Conventional Commits](https://www.conventionalcommits.org/). Powered by [`changelogithub`](https://github.com/antfu/changelogithub)
 
 ## Create an action from this template
 
