@@ -156,26 +156,26 @@ function generateChangelog(inputOptions) {
         if (!(yield (0, changelogithub_1.hasTagOnGitHub)(config.to, config))) {
             throw new Error(`Current ref "${config.to}" is not available as tags on GitHub. Release skipped.`);
         }
-        let changelog = md
-            .replace('##### &nbsp;&nbsp;&nbsp;&nbsp;', '**Full Changelog**: ')
-            .replace('View changes on GitHub', `${config.from}...${config.to}`)
-            .replace(/### &nbsp;&nbsp;&nbsp;/g, '## ');
+        // remove footer diff link
+        let content = md.replace(/##### &nbsp;&nbsp;&nbsp;&nbsp;.+/i, '');
+        const diff = `https://github.com/${config.github}/compare/${config.from}...${config.to}`;
+        const footer = `**Full Changelog**:  ${diff}\n`;
+        const changelog = content.replace(/### &nbsp;&nbsp;&nbsp;/g, '## ') + footer;
         (0, core_1.setOutput)('changelog', changelog);
-        yield setFileChangelogOutput(config, md);
+        yield setFileChangelogOutput(config, content);
         if (commits.length === 0 && (yield (0, changelogithub_1.isRepoShallow)())) {
             throw new Error('The repo seems to be cloned shallowly, which make changelog failed to generate. You might want to specify `fetch-depth: 0` in your CI config.');
         }
     });
 }
 exports.generateChangelog = generateChangelog;
-function setFileChangelogOutput(config, md) {
+function setFileChangelogOutput(config, changelog) {
     return __awaiter(this, void 0, void 0, function* () {
         let d = new Date();
         let year = d.getFullYear();
         let month = (d.getMonth() + 1).toString().padStart(2, '0');
         let day = d.getDate().toString().padStart(2, '0');
         let header = `## ${config.to} (${year}-${month}-${day})\n`;
-        let changelog = md.replace(/##### &nbsp;&nbsp;&nbsp;&nbsp;.+/i, '');
         (0, core_1.setOutput)('changelog_with_version', header + changelog);
         let outputFile = (0, action_1.getStringInput)('output-file');
         if (outputFile && outputFile != '') {

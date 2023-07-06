@@ -1,3 +1,16 @@
+## v1.0.7 (2023-07-06)
+### &nbsp;&nbsp;&nbsp;🔧 Tweaks
+
+- Change release log format &nbsp;-&nbsp; by @bitxeno [<samp>(2665b)</samp>](https://github.com/bitxeno/changelogithub-action/commit/2665b67)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **release**: Release v1.0.6 &nbsp;-&nbsp; by @github-actions[bot] [<samp>(c95d2)</samp>](https://github.com/bitxeno/changelogithub-action/commit/c95d263)
+
+### &nbsp;&nbsp;&nbsp;🤖 CI
+
+- Ignore lib &nbsp;-&nbsp; by @bitxeno [<samp>(40b63)</samp>](https://github.com/bitxeno/changelogithub-action/commit/40b63ce)
+
 ## v1.0.6 (2023-07-06)
 ### &nbsp;&nbsp;&nbsp;🔧 Tweaks
 
