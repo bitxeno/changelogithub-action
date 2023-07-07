@@ -1,7 +1,7 @@
 
 # changelogithub-action
 
-<a href="https://github.com/bitxeno/changelogithub-action/actions"><img alt="build status" src="https://github.com/bitxeno/changelogithub-action/workflows/build/badge.svg"></a>
+<a href="https://github.com/bitxeno/changelogithub-action/actions"><img alt="build status" src="https://github.com/bitxeno/changelogithub-action/actions/workflows/build.yml/badge.svg"></a>
 
 
 A GitHub action to generate changelog with [Conventional Commits](https://www.conventionalcommits.org/). Powered by [`changelogithub`](https://github.com/antfu/changelogithub)
@@ -19,13 +19,6 @@ A GitHub action to generate changelog with [Conventional Commits](https://www.co
       perf
       refactor
       tweak
-    #   docs
-    #   build
-    #   test
-    #   style
-    #   ci
-    #   chore
-    #   improve
 ```
 
 ### Inputs
@@ -46,8 +39,26 @@ The following `inputs` are available:
 | `name`         | Name of the release.                                                            |          |
 | `prerelease`   | Mark the release as prerelease.                                                 |          |
 | `to`           | The end commit reference. When not provided, the latest commit in HEAD is used. |          |
-| `types`        | generate log types filter.  (based on the [angular](https://github.com/angular/angular/blob/68a6a07/CONTRIBUTING.md#commit))                                                    |          |
+| `types`        | generate log types filter.  (based on the [angular](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit))                                                    |          |
 | `output-file`  | File to output the changelog to.                                                |          |
+
+
+The following `types` are available:
+
+| Name        | Description             | Optional | 
+| ----------- | ----------------------- | -------- |
+| `feat`      | A new feature           | 
+| `fix`       | A bug fix               | 
+| `perf`      | A new feature           | 
+| `refactor`  | A code change that neither fixes a bug nor adds a feature           | 
+| `test`      | Adding missing tests or correcting existing tests           | 
+| `build`     | Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)           | 
+| `ci`        | Changes to our CI configuration files and scripts (examples: CircleCi, SauceLabs)          | 
+| `docs`      | Documentation only changes           | 
+| `tweak`     | A code change that neither fixes a bug nor adds a feature. ([discuss](https://github.com/conventional-commits/conventionalcommits.org/issues/78))          |    ✅    | 
+| `improve`   | A code change that neither fixes a bug nor adds a feature. ([discuss](https://github.com/conventional-commits/conventionalcommits.org/issues/78))           |    ✅    | 
+| `style`     | Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)           |    ✅    |
+
 
 
 ### Outputs
