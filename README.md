@@ -1,8 +1,9 @@
 
 # changelogithub-action
 
-<a href="https://github.com/bitxeno/changelogithub-action/actions"><img alt="build status" src="https://github.com/bitxeno/changelogithub-action/actions/workflows/build.yml/badge.svg"></a>
-
+[![release](https://img.shields.io/github/v/release/bitxeno/changelogithub-action)](https://github.com/bitxeno/changelogithub-action/releases)
+[![build status](https://github.com/bitxeno/changelogithub-action/actions/workflows/build.yml/badge.svg)](https://github.com/bitxeno/changelogithub-action/actions)
+[![license](https://img.shields.io/github/license/bitxeno/changelogithub-action)](https://github.com/bitxeno/changelogithub-action/main/LICENSE) 
 
 A GitHub action to generate changelog with [Conventional Commits](https://www.conventionalcommits.org/). Powered by [`changelogithub`](https://github.com/antfu/changelogithub)
 
