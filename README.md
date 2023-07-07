@@ -31,14 +31,9 @@ The following `inputs` are available:
 | `token`        | The GitHub Token to use.                                                        |    ✅    |
 | `capitalize`   | Capitalize commit messages.                                                     |          |
 | `contributors` | Whether to include contributors in release notes.                               |          |
-| `draft`        | Mark the release as a draft.                                                    |          |
-| `dry`          | Dry run. Skip releasing to GitHub.                                              |          |
 | `emoji`        | Use emojis in section titles.                                                   |          |
 | `from`         | The start commit reference. When not provided, the latest git tag is used.      |          |
-| `github`       | The owner/repository identifier.                                                |          |
 | `group`        | Nest commit messages under their scopes.                                        |          |
-| `name`         | Name of the release.                                                            |          |
-| `prerelease`   | Mark the release as prerelease.                                                 |          |
 | `to`           | The end commit reference. When not provided, the latest commit in HEAD is used. |          |
 | `types`        | generate log types filter.  (based on the [angular](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit))                                                    |          |
 | `output-file`  | File to output the changelog to.                                                |          |
