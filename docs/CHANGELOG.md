@@ -1,3 +1,25 @@
+## v1.0.8 (2023-07-08)
+### &nbsp;&nbsp;&nbsp;🔧 Tweaks
+
+- Remove unused options &nbsp;-&nbsp; by @bitxeno [<samp>(44456)</samp>](https://github.com/bitxeno/changelogithub-action/commit/44456ca)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- Update README.md &nbsp;-&nbsp; by @bitxeno [<samp>(9f280)</samp>](https://github.com/bitxeno/changelogithub-action/commit/9f280de)
+- Update README.md &nbsp;-&nbsp; by @bitxeno [<samp>(8f5ff)</samp>](https://github.com/bitxeno/changelogithub-action/commit/8f5ff40)
+- Update README.md &nbsp;-&nbsp; by @bitxeno [<samp>(cdd7a)</samp>](https://github.com/bitxeno/changelogithub-action/commit/cdd7ae3)
+- Update README.md &nbsp;-&nbsp; by @bitxeno [<samp>(d738f)</samp>](https://github.com/bitxeno/changelogithub-action/commit/d738f23)
+- Update README.md &nbsp;-&nbsp; by @bitxeno [<samp>(f1c79)</samp>](https://github.com/bitxeno/changelogithub-action/commit/f1c7992)
+
+### &nbsp;&nbsp;&nbsp;📦 Build
+
+- Add build action &nbsp;-&nbsp; by @bitxeno [<samp>(d32f0)</samp>](https://github.com/bitxeno/changelogithub-action/commit/d32f052)
+- Fix build action &nbsp;-&nbsp; by @bitxeno [<samp>(43f4d)</samp>](https://github.com/bitxeno/changelogithub-action/commit/43f4de5)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **release**: Release v1.0.7 &nbsp;-&nbsp; by @github-actions[bot] [<samp>(c2f74)</samp>](https://github.com/bitxeno/changelogithub-action/commit/c2f7433)
+
 ## v1.0.7 (2023-07-06)
 ### &nbsp;&nbsp;&nbsp;🔧 Tweaks
 
