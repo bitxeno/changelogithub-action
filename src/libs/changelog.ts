@@ -32,12 +32,15 @@ export async function generateChangelog(inputOptions: ChangelogOptions) {
     throw new Error(`Current ref "${config.to}" is not available as tags on GitHub. Release skipped.`)
   }
 
+  // align footer diff link
+  let content = md.replace(/##### &nbsp;/i, '##### &nbsp;&nbsp;')
+
   // remove footer diff link
-  let content = md.replace(/##### &nbsp;&nbsp;&nbsp;&nbsp;.+/i, '')
+  let nofooter = md.replace(/##### &nbsp;.+/i, '')
 
-  setOutput('changelog', md)
+  setOutput('changelog', content)
 
-  await setFileChangelogOutput(config, content)
+  await setFileChangelogOutput(config, nofooter)
 
   if (commits.length === 0 && (await isRepoShallow())) {
     throw new Error(

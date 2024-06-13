@@ -151,10 +151,12 @@ function generateChangelog(inputOptions) {
         if (!(yield (0, changelogithub_1.hasTagOnGitHub)(config.to, config))) {
             throw new Error(`Current ref "${config.to}" is not available as tags on GitHub. Release skipped.`);
         }
+        // align footer diff link
+        let content = md.replace(/##### &nbsp;/i, '##### &nbsp;&nbsp;');
         // remove footer diff link
-        let content = md.replace(/##### &nbsp;&nbsp;&nbsp;&nbsp;.+/i, '');
-        (0, core_1.setOutput)('changelog', md);
-        yield setFileChangelogOutput(config, content);
+        let nofooter = md.replace(/##### &nbsp;.+/i, '');
+        (0, core_1.setOutput)('changelog', content);
+        yield setFileChangelogOutput(config, nofooter);
         if (commits.length === 0 && (yield (0, changelogithub_1.isRepoShallow)())) {
             throw new Error('The repo seems to be cloned shallowly, which make changelog failed to generate. You might want to specify `fetch-depth: 0` in your CI config.');
         }
