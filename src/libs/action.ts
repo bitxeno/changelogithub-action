@@ -4,7 +4,7 @@ import { type ChangelogOptions } from 'changelogithub'
 export function getInputOptions(): ChangelogOptions {
   const inputs = {
     capitalize: getBooleanInput('capitalize'),
-    contributors: getBooleanInput('contributors'),
+    contributors: getBooleanInput('contributors') ?? true,
     // https://github.com/antfu/changelogithub/blob/main/src/cli.ts#L20
     emoji: getBooleanInput('emoji') ?? true,
     from: getStringInput('from'),
@@ -16,16 +16,16 @@ export function getInputOptions(): ChangelogOptions {
       fix: { title: '🐞 Bug Fixes' },
       perf: { title: '🏎 Performance' },
       refactor: { title: "💅 Refactors" },
-      improve: { title: "💡 Improvements" },
-      tweak: { title: "🔧 Tweaks" },
       docs: { title: "📖 Documentation" },
       build: { title: "📦 Build" },
       types: { title: "🌊 Types" },
       chore: { title: "🏡 Chore" },
       examples: { title: "🏀 Examples" },
       test: { title: "✅ Tests" },
-      style: { title: "🎨 Styles" },
       ci: { title: "🤖 CI" },
+      improve: { title: "💡 Improvements" },
+      tweak: { title: "🔧 Tweaks" },
+      style: { title: "🎨 Styles" },
     },
   }
 

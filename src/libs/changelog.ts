@@ -35,10 +35,7 @@ export async function generateChangelog(inputOptions: ChangelogOptions) {
   // remove footer diff link
   let content = md.replace(/##### &nbsp;&nbsp;&nbsp;&nbsp;.+/i, '')
 
-  const diff = `https://github.com/${config.repo}/compare/${config.from}...${config.to}`
-  const footer = `**Full Changelog**:  ${diff}\n`
-  const changelog = content + footer
-  setOutput('changelog', changelog)
+  setOutput('changelog', md)
 
   await setFileChangelogOutput(config, content)
 
