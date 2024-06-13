@@ -1,3 +1,8 @@
+## v1.1.0 (2024-06-13)
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **release**: Release v1.0.8 &nbsp;-&nbsp; by @github-actions[bot] [<samp>(6345b)</samp>](https://github.com/bitxeno/changelogithub-action/commit/6345b29)
+
 ## v1.0.8 (2023-07-08)
 ### &nbsp;&nbsp;&nbsp;🔧 Tweaks
 
