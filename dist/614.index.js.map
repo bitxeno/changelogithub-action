@@ -1,0 +1,1 @@
+{"version":3,"file":"614.index.js","mappings":";;;;;;;;;;;;;;AAAA","sources":["webpack://typescript-action/./node_modules/confbox/dist/jsonc.mjs"],"sourcesContent":["import\"./shared/confbox.9388d834.mjs\";export{p as parseJSONC,s as stringifyJSONC}from\"./shared/confbox.bcd59e75.mjs\";\n"],"names":[],"sourceRoot":""}
