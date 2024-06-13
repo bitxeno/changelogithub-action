@@ -1,3 +1,12 @@
+## v1.1.1 (2024-06-13)
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- Update release format &nbsp;-&nbsp; by @bitxeno [<samp>(303cf)</samp>](https://github.com/bitxeno/changelogithub-action/commit/303cffd)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **release**: Release v1.1.0 &nbsp;-&nbsp; by @github-actions[bot] [<samp>(7a34e)</samp>](https://github.com/bitxeno/changelogithub-action/commit/7a34ebc)
+
 ## v1.1.0 (2024-06-13)
 ### &nbsp;&nbsp;&nbsp;🏡 Chore
 

@@ -10,12 +10,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getBooleanInput = exports.getStringInput = exports.getInputOptions = void 0;
 const core_1 = __nccwpck_require__(2186);
 function getInputOptions() {
-    var _a;
+    var _a, _b;
     const inputs = {
         capitalize: getBooleanInput('capitalize'),
-        contributors: getBooleanInput('contributors'),
+        contributors: (_a = getBooleanInput('contributors')) !== null && _a !== void 0 ? _a : true,
         // https://github.com/antfu/changelogithub/blob/main/src/cli.ts#L20
-        emoji: (_a = getBooleanInput('emoji')) !== null && _a !== void 0 ? _a : true,
+        emoji: (_b = getBooleanInput('emoji')) !== null && _b !== void 0 ? _b : true,
         from: getStringInput('from'),
         group: getBooleanInput('group'),
         to: getStringInput('to'),
@@ -25,16 +25,16 @@ function getInputOptions() {
             fix: { title: '🐞 Bug Fixes' },
             perf: { title: '🏎 Performance' },
             refactor: { title: "💅 Refactors" },
-            improve: { title: "💡 Improvements" },
-            tweak: { title: "🔧 Tweaks" },
             docs: { title: "📖 Documentation" },
             build: { title: "📦 Build" },
             types: { title: "🌊 Types" },
             chore: { title: "🏡 Chore" },
             examples: { title: "🏀 Examples" },
             test: { title: "✅ Tests" },
-            style: { title: "🎨 Styles" },
             ci: { title: "🤖 CI" },
+            improve: { title: "💡 Improvements" },
+            tweak: { title: "🔧 Tweaks" },
+            style: { title: "🎨 Styles" },
         },
     };
     const options = {};
@@ -153,10 +153,7 @@ function generateChangelog(inputOptions) {
         }
         // remove footer diff link
         let content = md.replace(/##### &nbsp;&nbsp;&nbsp;&nbsp;.+/i, '');
-        const diff = `https://github.com/${config.repo}/compare/${config.from}...${config.to}`;
-        const footer = `**Full Changelog**:  ${diff}\n`;
-        const changelog = content + footer;
-        (0, core_1.setOutput)('changelog', changelog);
+        (0, core_1.setOutput)('changelog', md);
         yield setFileChangelogOutput(config, content);
         if (commits.length === 0 && (yield (0, changelogithub_1.isRepoShallow)())) {
             throw new Error('The repo seems to be cloned shallowly, which make changelog failed to generate. You might want to specify `fetch-depth: 0` in your CI config.');
